@@ -1,8 +1,8 @@
 <%-- 
     Document   : index
-    Created on : 25 avr. 2017, 13:59:44
-    Author     : Youssef
---%>
+    Created on : 25 avr. 2017, 14:00:42
+    Author     : TOSHIBA PC
+--%> 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>  
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
@@ -62,6 +62,12 @@
                 <input type="hidden" name="action" value="updateUtilisateur"/>  
                 <input type="submit" value="Mettre à jour" name="submit"/>  
             </form>  
+            <li>Supprimer un utilisateur à partir de son login</li>  
+            <form action="ServletUsers" method="get">  
+                login : <input type="text" name="login"/><br>  
+                <input type="hidden" name="action" value="deleteUtilisateur"/>  
+                <input type="submit" value="Supprimer" name="submit"/>  
+            </form>  
         </ol>  
 
         <!-- Fin du menu -->  
@@ -96,39 +102,81 @@
                 <tr><td><b>TOTAL</b></td><td></td><td><b>${total}</b></td><td></td></tr>  
             </table>  
 
-        </c:if> 
-
+        </c:if>  
         <c:if test="${param['action'] == 'chercherParLogin'}" >  
-            <h2>Utilisateur recherché:</h2>  
+            <h2>Utilisateur recherché</h2>  
 
             <table border="10">  
                 <!-- La ligne de titre du tableau des comptes -->  
                 <tr>  
+                    <td><b>Id</b></td>
                     <td><b>Login</b></td>  
                     <td><b>Nom</b></td>  
-                    <td><b>Prénom</b></td>
-                    <td><b>Id</b></td> 
-                </tr>  
-
-                <tr>  
-                    <td>${utilisateur.login}</td>  
-                    <td>${utilisateur.firstname}</td>  
-                    <td>${utilisateur.lastname}</td> 
-                    <td>${utilisateur.id}</td>
-                    <!-- On compte le nombre de users -->  
-                    <c:set var="total" value="${total+1}"/>  
+                    <td><b>Prénom</b></td>  
                 </tr>
-                <c:if test="${param['utilisateur'] == null}">
-                    <p>Utilisateur non trouvé</p>
-                </c:if>
+                <c:if test="${requestScope['utilisateur']== null}">  
+                    <tr>  
+                        <td> Aucun utilisateur trouvé</td>  
 
+                    </tr>  
+                </c:if>  
+                <c:if test="${requestScope['utilisateur']!= null}">  
+                    <tr> 
+                        <td>${utilisateur.id}</td>  
+                        <td>${utilisateur.login}</td>  
+                        <td>${utilisateur.firstname}</td>  
+                        <td>${utilisateur.lastname}</td>  
+                    </tr>  
+                </c:if>                  
             </table>  
 
         </c:if>  
+        <c:if test="${param['action'] == 'updateUtilisateur'}" >  
+            <h2>Nouvelles données</h2>  
 
+            <table border="10">  
+                <!-- La ligne de titre du tableau des comptes -->  
+                <tr>  
+                    <td><b>Id</b></td>
+                    <td><b>Login</b></td>  
+                    <td><b>Nom</b></td>  
+                    <td><b>Prénom</b></td>  
+                </tr>
+                <c:if test="${requestScope['utilisateur']== null}">  
+                    <tr>  
+                        <td> Aucun utilisateur trouvé</td>  
 
+                    </tr>  
+                </c:if>  
+                <c:if test="${requestScope['utilisateur']!= null}">  
+                    <tr> 
+                        <td>${utilisateur.id}</td>  
+                        <td>${utilisateur.login}</td>  
+                        <td>${utilisateur.firstname}</td>  
+                        <td>${utilisateur.lastname}</td>  
+                    </tr>  
+                </c:if>                  
+            </table>  
 
+        </c:if>
+        <c:if test="${param['action'] == 'deleteUtilisateur'}" >  
+            <h2>Résultat de la suppression</h2>  
 
+            <table border="10">                 
+                <c:if test="${requestScope['test']== false}">  
+                    <tr>  
+                        <td> échec de la suppression </td>  
 
+                    </tr>  
+                </c:if>  
+                <c:if test="${requestScope['test']== true}">  
+                    <tr> 
+                        <td>suppression réussie</td>  
+
+                    </tr>  
+                </c:if>                  
+            </table>  
+
+        </c:if>
     </body>  
 </html>  

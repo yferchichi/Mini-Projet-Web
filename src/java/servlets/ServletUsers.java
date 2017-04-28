@@ -5,8 +5,8 @@
  */
 package servlets;
 
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -20,7 +20,7 @@ import utilisateurs.modeles.Utilisateur;
 
 /**
  *
- * @author Youssef
+ * @author TOSHIBA PC
  */
 @WebServlet(name = "ServletUsers", urlPatterns = {"/ServletUsers"})
 public class ServletUsers extends HttpServlet {
@@ -39,61 +39,58 @@ public class ServletUsers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Pratique pour décider de l'action à faire  
         String action = request.getParameter("action");
         String forwardTo = "";
         String message = "";
 
         if (action != null) {
-
             if (action.equals("listerLesUtilisateurs")) {
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUtilisateursDeTest")) {
-
                 gestionnaireUtilisateurs.creerUtilisateursDeTest();
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
-
             } else if (action.equals("creerUnUtilisateur")) {
-
-                String nom = request.getParameter("nom");
-                String prenom = request.getParameter("prenom");
-                String login = request.getParameter("login");
-                gestionnaireUtilisateurs.creeUtilisateur(nom, prenom, login);
+                gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom").toString(), request.getParameter("prenom").toString(), request.getParameter("login").toString());
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
-
             } else if (action.equals("chercherParLogin")) {
-
-                String login = request.getParameter("login");
-                Utilisateur u = gestionnaireUtilisateurs.trouverUtilisateur(login);
+                Utilisateur u = gestionnaireUtilisateurs.trouverUtilisateur(request.getParameter("login").toString());
                 request.setAttribute("utilisateur", u);
                 forwardTo = "index.jsp?action=chercherParLogin";
-                message = "Liste des utilisateurs";
-
+                message = "Résultat de la recherche";
             } else if (action.equals("updateUtilisateur")) {
+                Utilisateur u = gestionnaireUtilisateurs.modifierUtilisateur(request.getParameter("nom").toString(), request.getParameter("prenom").toString(), request.getParameter("login").toString());
+                request.setAttribute("utilisateur", u);
+                forwardTo = "index.jsp?action=updateUtilisateur";
+                message = "Résultat de la modification:";
 
-                String login = request.getParameter("login");
+            } else if (action.equals("deleteUtilisateur")) {
+                boolean test= gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login").toString());
+                request.setAttribute("test", test);
+                forwardTo = "index.jsp?action=deleteUtilisateur";
+                message = "Résultat de la suppression:";
 
-            } else {
-                forwardTo = "index.jsp?action=todo";
-                message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
             }
+        } else {
+            forwardTo = "index.jsp?action=todo";
+            message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
         }
 
         RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);
+
         dp.forward(request, response);
         // Après un forward, plus rien ne peut être exécuté après !  
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
