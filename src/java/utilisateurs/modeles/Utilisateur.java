@@ -30,10 +30,11 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
-    public Utilisateur(String firstname, String lastname, String login) {
+    public Utilisateur(String firstname, String lastname, String login, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
+        this.password = password;
     }
 
     public int getId() {

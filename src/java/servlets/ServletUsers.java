@@ -5,7 +5,6 @@
  */
 package servlets;
 
-
 import java.io.IOException;
 import java.util.Collection;
 import javax.ejb.EJB;
@@ -56,7 +55,7 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
             } else if (action.equals("creerUnUtilisateur")) {
-                gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom").toString(), request.getParameter("prenom").toString(), request.getParameter("login").toString());
+                gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom").toString(), request.getParameter("prenom").toString(), request.getParameter("login").toString(), request.getParameter("motdepasse").toString());
                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
@@ -73,7 +72,7 @@ public class ServletUsers extends HttpServlet {
                 message = "Résultat de la modification:";
 
             } else if (action.equals("deleteUtilisateur")) {
-                boolean test= gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login").toString());
+                boolean test = gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login").toString());
                 request.setAttribute("test", test);
                 forwardTo = "index.jsp?action=deleteUtilisateur";
                 message = "Résultat de la suppression:";
