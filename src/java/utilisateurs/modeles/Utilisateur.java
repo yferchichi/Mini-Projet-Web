@@ -36,6 +36,13 @@ public class Utilisateur implements Serializable {
         this.login = login;
         this.password = password;
     }
+    public Utilisateur(Integer id, String firstname, String lastname, String login, String password) {
+        this.id=id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.login = login;
+        this.password = password;
+    }
 
     public int getId() {
         return id;

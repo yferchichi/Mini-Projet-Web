@@ -32,6 +32,13 @@ public class GestionnaireUtilisateurs {
         creeUtilisateur("Ringo", "Starr", "rstarr", "test");
         creeUtilisateur("Georges", "Harisson", "georgesH", "test");
     }
+      public void creer30UtilisateursDeTest() {
+          for (int i = 0; i < 50; i++) {
+           creeUtilisateur("Prenom "+i, "Nom "+i, "login "+i, "password "+i);   
+          }
+        creeUtilisateur("John", "Lennon", "jlennon", "test");
+        
+    }
 
     public Utilisateur creeUtilisateur(String nom, String prenom, String login, String password) {
         Utilisateur u = new Utilisateur(nom, prenom, login, password);
@@ -67,7 +74,7 @@ public class GestionnaireUtilisateurs {
 
     public Collection<Utilisateur> getAllUsers() {
         // Exécution d'une requête équivalente à un select *  
-        Query q = em.createQuery("select u from Utilisateur u");
+        Query q = em.createQuery("select u from Utilisateur u order by u.id");
         return q.getResultList();
     }
     // Add business logic below. (Right-click in editor and choose  
