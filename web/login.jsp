@@ -30,5 +30,12 @@
                 <button type="submit" class="btn btn-primary btn-md">Se connecter</button>
             </form>
         </fieldset>
-    </body>
+    <c:if test="${requestScope['resultat']!= null}">  
+        <h3>  
+            ${resultat} 
+
+        </h3>  
+
+    </c:if>
+</body>
 </html>

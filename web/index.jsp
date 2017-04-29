@@ -15,6 +15,8 @@
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css"  
+    href="${pageContext.request.contextPath}/style.css" /> 
 
         <title>Gestionnaire d'utilisateurs</title>  
     </head>  
@@ -28,55 +30,81 @@
         </c:if>  
 
 
-        <h2>Menu de gestion des utilisateurs</h2>  
-        <ul>  
+        <h2 >Menu de gestion des utilisateurs</h2>  
+        <ul id="menu">  
             <li><a href="ServletUsers?action=listerLesUtilisateurs">Afficher/raffraichir la liste de tous les utilisateurs</a></li>  
             <p>  
         </ul>  
         <h2>Liste des fonctionnalités à implémenter dans la Servlet (note : après chaque action cette page sera  
             rappelée par la servlet avec la liste des utilisateurs raffraichie et un message de confirmation</h2>  
-        <ol>  
-            <li><a href="ServletUsers?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></li>  
-
-            <li>Créer un utilisateur</li>  
-            <form action="ServletUsers" method="get" class="form-horizontal">
-                <label for="nom">Nom :</label>
-                <input type="text" name="nom" id="nom"/><br>
-                <label for="prenom">Prénom :</label>
-                <input type="text" name="prenom" id="prenom"/><br>
-                <label for="login">Login :</label>
-                <input type="text" name="login" id="login"/><br>
-                <label for="pwd">Mot de passe :</label>
-                <input type="password" name="motdepasse" id="pwd"><br>
-                <!-- Astuce pour passer des paramètres à une servlet depuis un formulaire JSP !-->  
-                <input type="hidden" name="action" value="creerUnUtilisateur"/>  
-                <input type="submit" value="Créer l'utilisateur" name="submit"/>  
-            </form>  
-
-            <li>Afficher les détails d'un utilisateur</li>  
-            <form action="ServletUsers" method="get">
-                <label for="lgn">login :</label>
-                <input type="text" name="login" id="lgn"/><br>  
-                <input type="hidden" name="action" value="chercherParLogin"/>  
-                <input type="submit" value="Chercher" name="submit"/>  
-            </form>  
-
-
-            <li>Modifier les détails d'un utilisateur :</li>  
-            <form action="ServletUsers" method="get">  
-                Login : <input type="text" name="login"/><br>  
-                Nom : <input type="text" name="nom"/><br>  
-                Prénom : <input type="text" name="prenom"/><br>  
-                <input type="hidden" name="action" value="updateUtilisateur"/>  
-                <input type="submit" value="Mettre à jour" name="submit"/>  
-            </form>  
-            <li>Supprimer un utilisateur à partir de son login</li>  
-            <form action="ServletUsers" method="get">  
-                login : <input type="text" name="login"/><br>  
-                <input type="hidden" name="action" value="deleteUtilisateur"/>  
-                <input type="submit" value="Supprimer" name="submit"/>  
-            </form>  
-        </ol>  
+        <table border="2" color="solid black"> 
+            <thead> <td>Création test</td>
+                <td>Créer un utilisateur</td>
+                <td>Afficher les détails d'un utilisateur</td>
+                <td>Modifier les détails d'un utilisateur :</td>
+                <td>Supprimer un utilisateur à partir de son login</td>
+            </thead>
+            <tr> <td><a href="ServletUsers?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></td>
+                <td> <table><form action="ServletUsers" method="get" class="form-inline">
+                            <tr> 
+                                <td> <label for="nom">Nom :</label>        </td>
+                                <td> <input type="text" name="nom" id="nom"/></td>
+                            </tr>
+                            <tr>
+                                <td> <label for="prenom">Prénom :</label></td>
+                                <td> <input type="text" name="prenom" id="prenom"/></td>
+                            </tr>
+                            <tr>
+                                <td> <label for="login">Login :</label></td>
+                                <td> <input type="text" name="login" id="login"/></td>
+                            </tr>
+                            <tr>
+                                <td>  <label for="pwd">Mot de passe :</label></td>
+                                <td>  <input type="password" name="motdepasse" id="pwd"></td>
+                            </tr>
+                            <tr>
+                                <!-- Astuce pour passer des paramètres à une servlet depuis un formulaire JSP !-->  
+                                <td><input type="hidden" name="action" value="creerUnUtilisateur"/>  </td>
+                                <td> <input type="submit" class="btn btn-primary btn-md" value="Créer l'utilisateur" name="submit"/></td>
+                            </tr>
+                        </form> </table> </td> 
+                <td><table><form action="ServletUsers" method="get" class="form-inline">
+                            <tr>
+                                <td><label for="lgn">login :</label></td>
+                                <td><input type="text" name="login" id="lgn"/></td> 
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" name="action" value="chercherParLogin"/> </td> 
+                                <td><input type="submit"class="btn btn-primary btn-md" value="Chercher" name="submit"/></td>
+                            </tr>  
+                        </form></table> </td>
+                <td><table><form action="ServletUsers" method="get" class="form-inline">  
+                            <tr> 
+                                <td> <label for="nom">Nom :</label>        </td>
+                                <td> <input type="text" name="nom" id="nom"/></td>
+                            </tr>
+                            <tr>
+                                <td> <label for="prenom">Prénom :</label></td>
+                                <td> <input type="text" name="prenom" id="prenom"/></td>
+                            </tr>
+                            <tr>
+                                <td> <label for="login">Login :</label></td>
+                                <td> <input type="text" name="login" id="login"/></td>
+                            </tr>
+                            <tr>  
+                                <td><input type="hidden" name="action" value="updateUtilisateur"/>  </td>
+                                <td><input type="submit" class="btn btn-primary btn-md" value="Mettre à jour" name="submit"/> </td> </tr> 
+                        </form></table></td>
+                <td><table><form action="ServletUsers" method="get" class="form-inline">  
+                            <tr>
+                                <td> <label for="login">Login :</label></td>
+                                <td> <input type="text" name="login" id="login"/></td>
+                            </tr>  
+                            <tr> <td><input type="hidden" name="action" value="deleteUtilisateur"/></td>   
+                                <td><input type="submit" class="btn btn-primary btn-md" value="Supprimer" name="submit"/></td>   </tr>
+                        </form></table> </td>
+            </tr>
+        </table>  
 
         <!-- Fin du menu -->  
 

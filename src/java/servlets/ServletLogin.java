@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,10 +22,10 @@ import utilisateurs.modeles.Utilisateur;
  */
 @WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
 public class ServletLogin extends HttpServlet {
+
     @EJB
     private GestionnaireUtilisateurs gestionnaireUtilisateurs;
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,25 +40,46 @@ public class ServletLogin extends HttpServlet {
         String action = request.getParameter("action");
         String forwardTo = "login.jsp?action=connectUser";
         String message = "";
-
+        String isNull = null;
+        String resultat = null;
+        HttpSession session = request.getSession();
         if (action != null) {
-            
-            String username = request.getParameter("userName");
-            String password = request.getParameter("motDePasse");
-            
-            Utilisateur utilisateur = gestionnaireUtilisateurs.trouverUtilisateur(username);
-            
-            if (password.equals(utilisateur.getPassword())) {
-                HttpSession session = request.getSession();
-                session.setAttribute("utilisateur", username);
-            
-            }
-            
-        }
+            if (!request.getParameter("userName").equals(isNull) && !request.getParameter("motDePasse").equals(isNull)) {
 
+                String username = request.getParameter("userName");
+                String password = request.getParameter("motDePasse");
+
+                Utilisateur utilisateur = gestionnaireUtilisateurs.trouverUtilisateur(username);
+                if (utilisateur.getLogin() != null) {
+
+                    if (password.equals(utilisateur.getPassword())) {
+                        session.setAttribute("utilisateur", username);
+                        getServletContext().getRequestDispatcher("/index.jsp").forward(
+                                request, response);
+                    } else {
+                        resultat = "Mot de passe incorrect!";
+                        session.setAttribute("resultat", resultat);
+                        getServletContext().getRequestDispatcher("/login.jsp").forward(
+                                request, response);
+                    }
+                } else {
+                    resultat = "Ce login n'existe pas!";
+                    session.setAttribute("resultat", resultat);
+                    getServletContext().getRequestDispatcher("/login.jsp").forward(
+                            request, response);
+
+                }
+            } else {
+                resultat = "Veuillez saisir vos informations de connexion!!";
+                session.setAttribute("resultat", resultat);
+                getServletContext().getRequestDispatcher("/login.jsp").forward(
+                        request, response);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

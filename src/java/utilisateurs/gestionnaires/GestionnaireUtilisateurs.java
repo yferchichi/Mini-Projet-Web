@@ -42,9 +42,17 @@ public class GestionnaireUtilisateurs {
     public Utilisateur trouverUtilisateur(String login) {
         // Utilisateur u=em.find(Utilisateur.class, login);         
         //  return u;
+        Utilisateur u=new Utilisateur();
+        u.setLogin(null);
+        u.setPassword(null);
         Query q = em.createQuery("select u from Utilisateur u where u.login=:login");
         q.setParameter("login", login);
-        return (Utilisateur) q.getSingleResult();
+        try{
+         u=(Utilisateur) q.getSingleResult();}
+        catch(Exception e){
+            
+        }
+        return u;
     }
 
     public Utilisateur modifierUtilisateur(String nom, String prenom, String login) {
