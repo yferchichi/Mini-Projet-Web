@@ -13,7 +13,9 @@
 
 <html>  
     <head>  
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
         <title>Gestionnaire d'utilisateurs</title>  
     </head>  
     <body>  
@@ -37,7 +39,7 @@
             <li><a href="ServletUsers?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></li>  
 
             <li>Créer un utilisateur</li>  
-            <form action="ServletUsers" method="get">
+            <form action="ServletUsers" method="get" class="form-horizontal">
                 <label for="nom">Nom :</label>
                 <input type="text" name="nom" id="nom"/><br>
                 <label for="prenom">Prénom :</label>
@@ -52,8 +54,9 @@
             </form>  
 
             <li>Afficher les détails d'un utilisateur</li>  
-            <form action="ServletUsers" method="get">  
-                login : <input type="text" name="login"/><br>  
+            <form action="ServletUsers" method="get">
+                <label for="lgn">login :</label>
+                <input type="text" name="login" id="lgn"/><br>  
                 <input type="hidden" name="action" value="chercherParLogin"/>  
                 <input type="submit" value="Chercher" name="submit"/>  
             </form>  
