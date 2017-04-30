@@ -25,43 +25,44 @@ public class GestionnaireUtilisateurs {
     // à partir du contenu de persistence.xml  
     @PersistenceContext
     private EntityManager em;
-
+    
     public void creerUtilisateursDeTest() {
         creeUtilisateur("John", "Lennon", "jlennon", "test");
         creeUtilisateur("Paul", "Mac Cartney", "pmc", "test");
         creeUtilisateur("Ringo", "Starr", "rstarr", "test");
         creeUtilisateur("Georges", "Harisson", "georgesH", "test");
     }
-      public void creer30UtilisateursDeTest() {
-          for (int i = 0; i < 50; i++) {
-           creeUtilisateur("Prenom "+i, "Nom "+i, "login "+i, "password "+i);   
-          }
+    
+    public void creer30UtilisateursDeTest() {
+        for (int i = 0; i < 50; i++) {
+            creeUtilisateur("Prenom " + i, "Nom " + i, "login " + i, "password " + i);
+        }
         creeUtilisateur("John", "Lennon", "jlennon", "test");
         
     }
-
+    
     public Utilisateur creeUtilisateur(String nom, String prenom, String login, String password) {
         Utilisateur u = new Utilisateur(nom, prenom, login, password);
         em.persist(u);
         return u;
     }
-
+    
     public Utilisateur trouverUtilisateur(String login) {
         // Utilisateur u=em.find(Utilisateur.class, login);         
         //  return u;
-        Utilisateur u=new Utilisateur();
+        Utilisateur u = new Utilisateur();
         u.setLogin(null);
         u.setPassword(null);
         Query q = em.createQuery("select u from Utilisateur u where u.login=:login");
         q.setParameter("login", login);
-        try{
-         u=(Utilisateur) q.getSingleResult();}
-        catch(Exception e){
+        try {
+            u = (Utilisateur) q.getSingleResult();
+        } catch (Exception e) {
             
         }
         return u;
     }
-
+    
     public Utilisateur modifierUtilisateur(String nom, String prenom, String login) {
         // Utilisateur u=em.find(Utilisateur.class, login);         
         //  return u;
@@ -71,11 +72,18 @@ public class GestionnaireUtilisateurs {
         em.merge(u);
         return (u);
     }
-
-    public Collection<Utilisateur> getAllUsers() {
-        // Exécution d'une requête équivalente à un select *  
+    
+    public Collection<Utilisateur> getAllUsers(int begin, int end) {
+        // Exécution d'une requête équivalente à un select *
         Query q = em.createQuery("select u from Utilisateur u order by u.id");
-        return q.getResultList();
+        
+        Collection<Utilisateur> listUsers = null;
+        if (end == 0) {
+            listUsers = q.getResultList();
+        } else {
+            listUsers = q.getResultList().subList(begin, end);
+        }
+        return listUsers;
     }
     // Add business logic below. (Right-click in editor and choose  
     // "Insert Code > Add Business Method")  
@@ -89,7 +97,7 @@ public class GestionnaireUtilisateurs {
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        
         return test;
     }
 }

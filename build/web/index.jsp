@@ -32,7 +32,9 @@
 
         <h2 >Menu de gestion des utilisateurs</h2>  
         <ul id="menu">  
-            <li><a href="ServletUsers?action=listerLesUtilisateurs">Afficher/raffraichir la liste de tous les utilisateurs</a></li>  
+            <li><a href="ServletUsers?action=listerLesUtilisateurs&begin=0&end=10">Afficher/raffraichir la liste de tous les utilisateurs</a></li>
+            <input type="hidden" name="begin" value="0"/>
+            <input type="hidden" name="end" value="0"/>
             <p>  
         </ul>  
         <h2>Liste des fonctionnalités à implémenter dans la Servlet (note : après chaque action cette page sera  
@@ -44,7 +46,7 @@
             <td>Modifier les détails d'un utilisateur :</td>
             <td>Supprimer un utilisateur à partir de son login</td>
         </thead>
-        <tr> <td><a href="ServletUsers?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></td>
+        <tr> <td><a href="ServletUsers?action=creerUtilisateursDeTest&begin=0&end=10">Créer 4 utilisateurs de test</a></td>
 
 
             <td> <table><form action="ServletUsers" method="get" class="form-inline">
@@ -106,7 +108,7 @@
                             <td><input type="submit" class="btn btn-primary btn-md" value="Supprimer" name="submit"/></td>   </tr>
                     </form></table> </td>
         </tr>
-        <tfoot><td colspan="5"> <a href="ServletUsers?action=creer30UtilisateursDeTest">Créer plus de 30 utilisateurs de test</a></td></tfood>
+        <tfoot><td colspan="5"> <a href="ServletUsers?action=creer30UtilisateursDeTest&begin=0&end=10">Créer plus de 30 utilisateurs de test</a></td></tfood>
 </table>  
 
 <!-- Fin du menu -->  
@@ -114,33 +116,34 @@
 <!-- Zone qui affiche les utilisateurs si le paramètre action vaut listerComptes -->  
 <c:if test="${param['action'] == 'listerLesUtilisateurs'}" >  
     <h2>Liste des utilisateurs</h2>  
-
-    <table border="10">  
-        <!-- La ligne de titre du tableau des comptes -->  
-        <tr>  
-            <td><b>Login</b></td>  
-            <td><b>Nom</b></td>  
-            <td><b>Prénom</b></td>  
-        </tr>  
-
-        <!-- Ici on affiche les lignes, une par utilisateur -->  
-        <!-- cette variable montre comment on peut utiliser JSTL et EL pour calculer -->  
-        <c:set var="total" value="0"/>  
-
-        <c:forEach var="u" items="${requestScope['listeDesUsers']}">  
+    <div class="pagination">
+        <table border="10">  
+            <!-- La ligne de titre du tableau des comptes -->  
             <tr>  
-                <td>${u.login}</td>  
-                <td>${u.firstname}</td>  
-                <td>${u.lastname}</td>  
-                <!-- On compte le nombre de users -->  
-                <c:set var="total" value="${total+1}"/>  
+                <td><b>Login</b></td>  
+                <td><b>Nom</b></td>  
+                <td><b>Prénom</b></td>  
             </tr>  
-        </c:forEach>  
 
-        <!-- Affichage du solde total dans la dernière ligne du tableau -->  
-        <tr><td><b>TOTAL</b></td><td></td><td><b>${total}</b></td><td></td></tr>  
-    </table>  
+            <!-- Ici on affiche les lignes, une par utilisateur -->  
+            <!-- cette variable montre comment on peut utiliser JSTL et EL pour calculer -->  
+            <c:set var="total" value="0"/>  
 
+            <c:forEach var="u" items="${requestScope['listeDesUsers']}">  
+                <tr>  
+                    <td>${u.login}</td>  
+                    <td>${u.firstname}</td>  
+                    <td>${u.lastname}</td>  
+                    <!-- On compte le nombre de users -->  
+                   <c:set var="total" value="${total+1}"/>  
+                </tr>  
+            </c:forEach>  
+
+            <!-- Affichage du solde total dans la dernière ligne du tableau -->  
+            <tr><td><b>TOTAL</b></td><td></td><td><b>${requestScope['total']}</b></td><td></td></tr>  
+        </table>  
+        ${requestScope['pagination']}
+    </div>
 </c:if>  
 <c:if test="${param['action'] == 'chercherParLogin'}" >  
     <h2>Utilisateur recherché</h2>  
