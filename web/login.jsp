@@ -30,6 +30,8 @@
                 <button type="submit" class="btn btn-primary btn-md">Se connecter</button>
             </form>
         </fieldset>
+        <br/>
+        <p>(login=test, mdp=test pour essayer!)</p>
     <c:if test="${requestScope['resultat']!= null}">  
         <h3>  
             ${resultat} 

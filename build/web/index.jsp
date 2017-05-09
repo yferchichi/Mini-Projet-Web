@@ -39,7 +39,7 @@
         </ul>  
         <h2>Liste des fonctionnalités à implémenter dans la Servlet (note : après chaque action cette page sera  
             rappelée par la servlet avec la liste des utilisateurs raffraichie et un message de confirmation</h2>  
-        <table border="2" color="solid black"> 
+        <table border ="2" class="table table-bordered"> 
             <thead> <td>Création test</td>
             <td>Créer un utilisateur</td>
             <td>Afficher les détails d'un utilisateur</td>
@@ -71,13 +71,13 @@
                             <td><input type="hidden" name="action" value="creerUnUtilisateur"/>  </td>
                             <td><input type="hidden" name="begin" value="0"/>  </td>
                             <td><input type="hidden" name="end" value="10"/>  </td>
-      
+
                             <td> <input type="submit" class="btn btn-primary btn-md" value="Créer l'utilisateur" name="submit"/></td>
                         </tr>
                     </form> </table> </td> 
             <td><table><form action="ServletUsers" method="get" class="form-inline">
                         <tr>
-                            <td><label for="lgn">login :</label></td>
+                            <td><label for="lgn">login </label></td>
                             <td><input type="text" name="login" id="lgn"/></td> 
                         </tr>
                         <tr>
@@ -87,11 +87,11 @@
                     </form></table> </td>
             <td><table><form action="ServletUsers" method="get" class="form-inline">  
                         <tr> 
-                            <td> <label for="nom">Nom :</label>        </td>
+                            <td> <label for="nom">Nom </label>        </td>
                             <td> <input type="text" name="nom" id="nom"/></td>
                         </tr>
                         <tr>
-                            <td> <label for="prenom">Prénom :</label></td>
+                            <td> <label for="prenom">Prénom </label></td>
                             <td> <input type="text" name="prenom" id="prenom"/></td>
                         </tr>
                         <tr>
@@ -120,7 +120,7 @@
 <c:if test="${param['action'] == 'listerLesUtilisateurs'}" >  
     <h2>Liste des utilisateurs</h2>  
     <div class="pagination">
-        <table border="10">  
+        <table class="table table-bordered">  
             <!-- La ligne de titre du tableau des comptes -->  
             <tr>  
                 <td><b>Login</b></td>  
@@ -138,12 +138,12 @@
                     <td>${u.firstname}</td>  
                     <td>${u.lastname}</td>  
                     <!-- On compte le nombre de users -->  
-                   <c:set var="total" value="${total+1}"/>  
+                    <c:set var="total" value="${total+1}"/>  
                 </tr>  
             </c:forEach>  
 
             <!-- Affichage du solde total dans la dernière ligne du tableau -->  
-            <tr><td><b>TOTAL</b></td><td></td><td><b>${requestScope['total']}</b></td><td></td></tr>  
+            <tr><td><b>TOTAL</b></td><td></td><td><b>${requestScope['total']}</b></td></tr>  
         </table>  
         ${requestScope['pagination']}
     </div>
