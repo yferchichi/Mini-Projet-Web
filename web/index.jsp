@@ -69,6 +69,9 @@
                         <tr>
                             <!-- Astuce pour passer des paramètres à une servlet depuis un formulaire JSP !-->  
                             <td><input type="hidden" name="action" value="creerUnUtilisateur"/>  </td>
+                            <td><input type="hidden" name="begin" value="0"/>  </td>
+                            <td><input type="hidden" name="end" value="10"/>  </td>
+      
                             <td> <input type="submit" class="btn btn-primary btn-md" value="Créer l'utilisateur" name="submit"/></td>
                         </tr>
                     </form> </table> </td> 
