@@ -108,7 +108,7 @@
                             <td><input type="submit" class="btn btn-primary btn-md" value="Supprimer" name="submit"/></td>   </tr>
                     </form></table> </td>
         </tr>
-        <tfoot><td colspan="5"> <a href="ServletUsers?action=creer30UtilisateursDeTest&begin=0&end=10">Créer plus de 30 utilisateurs de test</a></td></tfood>
+        <tfoot><td colspan="5"> <a href="ServletUsers?action=creer50UtilisateursDeTest&begin=0&end=10">Créer plus de 50 utilisateurs de test</a></td></tfood>
 </table>  
 
 <!-- Fin du menu -->  

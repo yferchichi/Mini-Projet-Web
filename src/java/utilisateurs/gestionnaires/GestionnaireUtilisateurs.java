@@ -36,9 +36,7 @@ public class GestionnaireUtilisateurs {
     public void creer30UtilisateursDeTest() {
         for (int i = 0; i < 50; i++) {
             creeUtilisateur("Prenom " + i, "Nom " + i, "login " + i, "password " + i);
-        }
-        creeUtilisateur("John", "Lennon", "jlennon", "test");
-        
+        }        
     }
     
     public Utilisateur creeUtilisateur(String nom, String prenom, String login, String password) {
@@ -100,4 +98,10 @@ public class GestionnaireUtilisateurs {
         
         return test;
     }
+      public Long countNombresElements(){
+          
+          Query q = em.createQuery("select count(u.id) as nb from Utilisateur u");
+          return (Long) q.getSingleResult();
+      }
+    
 }
