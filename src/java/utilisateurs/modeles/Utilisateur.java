@@ -6,16 +6,21 @@
 package utilisateurs.modeles;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import utilisateurs.modeles.Addresse;
 
 /**
  *
  * @author Youssef
  */
-@Entity
+@Entity(name = "UtilisateurOMUni")
 public class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,6 +31,10 @@ public class Utilisateur implements Serializable {
     private String lastname;
     private String login;
     private String password;
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private Collection<Addresse> listAddresses;
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private Collection<PhoneNumber> listPhoneNumbers;
 
     public Utilisateur() {
     }
@@ -36,8 +45,9 @@ public class Utilisateur implements Serializable {
         this.login = login;
         this.password = password;
     }
+
     public Utilisateur(Integer id, String firstname, String lastname, String login, String password) {
-        this.id=id;
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
@@ -107,6 +117,22 @@ public class Utilisateur implements Serializable {
     @Override
     public String toString() {
         return "utilisateur.modeles.Utilisateur[ id=" + id + " ]";
+    }
+
+    public Collection<Addresse> getListAddresses() {
+        return listAddresses;
+    }
+
+    public void setListAddresses(Collection<Addresse> listAddresses) {
+        this.listAddresses = listAddresses;
+    }
+
+    public Collection<PhoneNumber> getListPhoneNumbers() {
+        return listPhoneNumbers;
+    }
+
+    public void setListPhoneNumbers(Collection<PhoneNumber> listPhoneNumbers) {
+        this.listPhoneNumbers = listPhoneNumbers;
     }
 
 }
